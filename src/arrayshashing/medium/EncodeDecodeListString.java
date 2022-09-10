@@ -27,8 +27,11 @@ import java.util.stream.Collectors;
 /*
  * Easiest way to do that - using out of the box stream Api and Arrays utilities
  * I implemented them down for learning purposes
- * second approach will comply to the problem constraints
- *
+ * second approach will comply to the problem constraints : instead of using only delimeter between the words
+ * we can append a prefix before each word composed of ( length of the word + delimeter) for example:
+ * input : ("lint", "code", "love", "you") --> output : 4#lint4#code4#love3#you
+ * in decoding method : by using two pointers i,j to detect each word and add it to the output list
+ * time complexity is O(n)
  */
 public class EncodeDecodeListString {
 
@@ -74,7 +77,7 @@ public class EncodeDecodeListString {
         System.out.println(encode_v1(input));
         decode_v1(encode_v1(input)).stream().forEach(System.out::println);
 
-        input = Arrays.asList("we", "say", ":", "yes");
+        input = Arrays.asList("lint", "code", "love", "you");
         System.out.println(encode_v2(input));
         decode_v2(encode_v2(input)).stream().forEach(System.out::println);
 
