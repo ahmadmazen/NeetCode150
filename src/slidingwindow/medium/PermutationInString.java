@@ -84,6 +84,47 @@ public class PermutationInString {
         return true;
     }
 
+    public static boolean checkInclusion_sliding_best(String s1, String s2) {
+        if(s1.length() > s2.length()){
+            return false;
+        }
+        int[] s1map = new int[26];
+        int[] s2map = new int[26];
+        for(int i = 0; i < s1.length(); i++){
+           s1map[s1.charAt(i) - 'a']++;
+           s2map[s2.charAt(i) - 'a']++;
+        }
+        int count = 0;
+        for(int x = 0; x < 26; x++){
+            if(s1map[x] == s2map[x]){
+                count++;
+            }
+        }
+         for(int i = 0; i < s2.length() - s1.length(); i++){
+             int right = s2.charAt(i + s1.length()) - 'a';
+             int left = s2.charAt(i) - 'a';
+
+             if(count == 26){
+                 return true;
+             }
+
+             s2map[right]++;
+             if (s2map[right] == s1map[right]) {
+                 count++;
+             } else if (s2map[right] == s1map[right] + 1) {
+                 count--;
+             }
+             s2map[left]--;
+             if (s2map[left] == s1map[left]) {
+                 count++;
+             } else if (s2map[left] == s1map[left] - 1) {
+                 count--;
+             }
+         }
+        return count == 26;
+
+    }
+
     public static void main(String[] args) {
 //        System.out.println(checkInclusion("ab", "eidbaooo"));
 //
@@ -98,6 +139,17 @@ public class PermutationInString {
 //
 //        System.out.println(checkInclusion_hash("ab", "ab"));
 
-        System.out.println(checkInclusion_hash("adc", "dcda"));
+      //  System.out.println(checkInclusion_hash("adc", "dcda"));
+
+
+
+        //==========================
+        System.out.println(checkInclusion_sliding_best("ab", "eidbaooo"));
+
+//        System.out.println(checkInclusion_sliding_best("ab", "eidboaoo"));
+//
+//        System.out.println(checkInclusion_sliding_best("ab", "ab"));
+//
+//        System.out.println(checkInclusion_sliding_best("adc", "dcda"));
     }
 }
